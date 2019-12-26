@@ -10,6 +10,7 @@ import Foundation
 
 struct QuizData {
     var questionNumber = 0
+    var initialScore = 0
     
     let quiz = [
         Question(q: "Kenya's capital city is Mombasa", a: "False"),
@@ -27,10 +28,12 @@ struct QuizData {
 
     ]
     
-    func checkAnswer(_ userAnswer: String) -> Bool{
+    mutating func checkAnswer(_ userAnswer: String) -> Bool{
         if userAnswer == quiz[questionNumber].answer{
+            initialScore += 1
             return true
         } else {
+            initialScore += 0
             return false
         }
     }
@@ -43,6 +46,10 @@ struct QuizData {
         let progress = questionNumber / quiz.count
         
         return Float(progress)
+    }
+    
+    mutating func getScore() -> Int {
+         return initialScore
     }
     
     mutating func nextQuestion(){
